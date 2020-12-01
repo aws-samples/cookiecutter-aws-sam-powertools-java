@@ -12,6 +12,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.amazon.lambda.powertools.logging.Logging;
 import software.amazon.lambda.powertools.metrics.Metrics;
 import software.amazon.lambda.powertools.tracing.Tracing;
@@ -21,8 +23,10 @@ import software.amazon.lambda.powertools.tracing.Tracing;
  */
 public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
+    Logger log = LogManager.getLogger();
+
     @Logging(logEvent = true)
-    @Tracing(captureError = false, captureResponse = false)
+    @Tracing(captureResponse = false, captureError = false)
     @Metrics(captureColdStart = true)
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
@@ -45,8 +49,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         }
     }
 
-    @Tracing(namespace = "getPageContents", captureResponse = false, captureError = false)
+    @Tracing(namespace = "getPageContents")
     private String getPageContents(String address) throws IOException {
+        log.info(String.format("Retrieving %s", address));
         URL url = new URL(address);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
             return br.lines().collect(Collectors.joining(System.lineSeparator()));

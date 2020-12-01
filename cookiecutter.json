@@ -3,5 +3,5 @@
     "project_slug": "{{ cookiecutter.project_name.replace('_', ' ').title().replace(' ', '') }}",
     "runtime": ["java11", "java8.al2", "java8"],
     "dependency_manager": ["Maven", "Gradle"],
-    "_templates_repo": "git+ssh://git.amazon.com/pkg/Cookiecutter-aws-sam-powertools-java"
+    "_templates_repo": "https://github.com/aws-samples/cookiecutter-aws-sam-powertools-java"
 }
