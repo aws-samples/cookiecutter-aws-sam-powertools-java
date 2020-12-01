@@ -51,7 +51,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 
     @Tracing(namespace = "getPageContents")
     private String getPageContents(String address) throws IOException {
-        log.info(String.format("Retrieving %s", address));
+        log.info("Retrieving {}", address);
         URL url = new URL(address);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
             return br.lines().collect(Collectors.joining(System.lineSeparator()));
