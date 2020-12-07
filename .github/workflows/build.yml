@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - build_workflow
+    paths:
+      - 'templates/**'
+
+jobs:
+  build-mvn:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        # test against latest update of each major Java version, as well as specific updates of LTS versions:
+        java: [8, 8.al2, 11]
+    name: Java ${{ matrix.java }}
+    env:
+      OS: ${{ matrix.os }}
+      JAVA: ${{ matrix.java-version }}
+      AWS_REGION: eu-west-1
+    steps:
+      - id: get-java-version
+        uses: actions/github-script@0.9.0
+        with:
+          script: |
+            const version = ${{ matrix.java }}.split('.')[0]
+            core.setOutput('java-version', version)
+      - run: echo "${{steps.get-id.outputs.id}}"
+      - uses: actions/checkout@v2
+      - name: Setup java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{steps.get-java-version.outputs.java-version}}
+      - name: Build with Maven
+        run: mvn -B package --file templates/java${{ matrix.java }}/cookiecutter-aws-sam-hello-powertools-java-maven/{{ cookiecutter.project_slug }}/HelloWorldFunction/pom.xml
