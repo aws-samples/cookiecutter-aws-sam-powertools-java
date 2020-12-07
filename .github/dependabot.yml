@@ -1,42 +1,42 @@
 version: 2
 updates:
   - package-ecosystem: "maven"
-    directory: "/templates/java8/cookiecutter-aws-sam-hello-powertools-java-maven"
+    directory: "/templates/java8/cookiecutter-aws-sam-hello-powertools-java-maven/{{ cookiecutter.project_slug }}/HelloWorldFunction"
     schedule:
       interval: "daily"
     labels:
       - "maven"
       - "dependencies"
   - package-ecosystem: "maven"
-    directory: "/templates/java8.al2/cookiecutter-aws-sam-hello-powertools-java-maven"
+    directory: "/templates/java8.al2/cookiecutter-aws-sam-hello-powertools-java-maven/{{ cookiecutter.project_slug }}/HelloWorldFunction"
     schedule:
       interval: "daily"
     labels:
       - "maven"
       - "dependencies"
   - package-ecosystem: "maven"
-    directory: "/templates/java11/cookiecutter-aws-sam-hello-powertools-java-maven"
+    directory: "/templates/java11/cookiecutter-aws-sam-hello-powertools-java-maven/{{ cookiecutter.project_slug }}/HelloWorldFunction"
     schedule:
       interval: "daily"
     labels:
       - "maven"
       - "dependencies"
   - package-ecosystem: "gradle"
-    directory: "/templates/java8/cookiecutter-aws-sam-hello-powertools-java-gradle"
+    directory: "/templates/java8/cookiecutter-aws-sam-hello-powertools-java-gradle/{{ cookiecutter.project_slug }}/HelloWorldFunction"
     schedule:
       interval: "daily"
     labels:
       - "gradle"
       - "dependencies"
   - package-ecosystem: "gradle"
-    directory: "/templates/java8.al2/cookiecutter-aws-sam-hello-powertools-java-gradle"
+    directory: "/templates/java8.al2/cookiecutter-aws-sam-hello-powertools-java-gradle/{{ cookiecutter.project_slug }}/HelloWorldFunction"
     schedule:
       interval: "daily"
     labels:
       - "gradle"
       - "dependencies"
   - package-ecosystem: "gradle"
-    directory: "/templates/java11/cookiecutter-aws-sam-hello-powertools-java-gradle"
+    directory: "/templates/java11/cookiecutter-aws-sam-hello-powertools-java-gradle/{{ cookiecutter.project_slug }}/HelloWorldFunction"
     schedule:
       interval: "daily"
     labels:
