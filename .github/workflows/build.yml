@@ -20,11 +20,10 @@ jobs:
       run: |
         JSON=$(cat ./manifest.json | jq [.[][]])
         JSON="${JSON//'%'/'%25'}"
-        echo $JSON
         JSON="{\"include\":$JSON}"
         echo $JSON
         echo "-----------------------"
-        echo "::set-output name=matrix::${JSON}
+        echo "::set-output name=matrix::${JSON}"
   build:
     needs: prepare
     runs-on: ubuntu-latest
