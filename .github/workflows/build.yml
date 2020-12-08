@@ -38,7 +38,7 @@ jobs:
           java-version: ${{ matrix.javaVersion }}
       - name: Build with Maven
         if: ${{ matrix.dependencyManager == 'maven' }}
-        run: mvn -B package --file ${{ matrix.directory }}/{{ cookiecutter.project_slug }}/HelloWorldFunction/pom.xml
+        run: mvn -B package --file ${{ matrix.directory }}/"{{ cookiecutter.project_slug }}"/HelloWorldFunction/pom.xml
       - name: Build with Gradle
         if: ${{ matrix.dependencyManager == 'gradle' }}
-        run: ./${{ matrix.directory }}/{{ cookiecutter.project_slug }}/HelloWorldFunction/gradlew build
+        run: ./${{ matrix.directory }}/"{{ cookiecutter.project_slug }}"/HelloWorldFunction/gradlew build
