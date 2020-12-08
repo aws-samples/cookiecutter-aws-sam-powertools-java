@@ -32,6 +32,8 @@ jobs:
       matrix: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
+      - name: test
+        run: echo "${matrix}
       - name: Setup java
         uses: actions/setup-java@v1
         with:
