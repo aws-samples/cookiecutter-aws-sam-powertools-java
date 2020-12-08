@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: test
         run: |
-          echo "${{ matrix }}"
+          echo "${{ matrix.include }}"
       - name: Setup java
         uses: actions/setup-java@v1
         with:
