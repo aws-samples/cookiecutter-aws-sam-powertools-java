@@ -32,16 +32,13 @@ jobs:
       matrix: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
-      - name: test
-        run: |
-          echo "${{ matrix.javaVersion }}"
       - name: Setup java
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ matrix.include.javaVersion }}
+          java-version: ${{ matrix.javaVersion }}
       - name: Build with Maven
-        if: ${{ matrix.include.dependencyManager == 'maven' }}
-        run: mvn -B package --file ${{ matrix.include.directory }}/{{ cookiecutter.project_slug }}/HelloWorldFunction/pom.xml
+        if: ${{ matrix.dependencyManager == 'maven' }}
+        run: mvn -B package --file ${{ matrix.directory }}/{{ cookiecutter.project_slug }}/HelloWorldFunction/pom.xml
       - name: Build with Gradle
-        if: ${{ matrix.include.dependencyManager == 'gradle' }}
-        run: ./${{ matrix.include.directory }}/{{ cookiecutter.project_slug }}/HelloWorldFunction/gradlew build
+        if: ${{ matrix.dependencyManager == 'gradle' }}
+        run: ./${{ matrix.directory }}/{{ cookiecutter.project_slug }}/HelloWorldFunction/gradlew build
