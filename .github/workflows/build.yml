@@ -18,9 +18,12 @@ jobs:
     - uses: actions/checkout@v2
     - id: set-matrix
       run: |
-        echo $(ls -lrt)
         JSON=$(cat ./manifest.json | jq [.[][]])
-        echo "::set-output name=matrix::{\"include\":${JSON//'%'/'%25'}}"
+        JSON="${JSON//'%'/'%25'}"
+        echo $JSON
+        JSON="{\"include\":$JSON}"
+        echo $JSON
+        echo "::set-output name=matrix::${JSON}"
   job2:
     needs: job1
     runs-on: ubuntu-latest
