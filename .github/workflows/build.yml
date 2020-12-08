@@ -23,7 +23,8 @@ jobs:
         echo $JSON
         JSON="{\"include\":$JSON}"
         echo $JSON
-        echo "::set-output name=matrix::${JSON}"
+        echo "-----------------------"
+        echo "::set-output name=matrix::{\"include\":[ { \"directory\": \"templates\/java8\/cookiecutter-aws-sam-hello-powertools-java-gradle\", \"displayName\": \"Hello World Example with Lambda Powertools: Gradle\", \"dependencyManager\": \"gradle\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java8\/cookiecutter-aws-sam-hello-powertools-java-maven\", \"displayName\": \"Hello World Example with Lambda Powertools: Maven\", \"dependencyManager\": \"maven\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java8.al2\/cookiecutter-aws-sam-hello-powertools-java-gradle\", \"displayName\": \"Hello World Example with Lambda Powertools: Gradle\", \"dependencyManager\": \"gradle\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java8.al2\/cookiecutter-aws-sam-hello-powertools-java-maven\", \"displayName\": \"Hello World Example with Lambda Powertools: Maven\", \"dependencyManager\": \"maven\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java11\/cookiecutter-aws-sam-hello-powertools-java-gradle\", \"displayName\": \"Hello World Example with Lambda Powertools: Gradle\", \"dependencyManager\": \"gradle\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"11\" }, { \"directory\": \"templates\/java11\/cookiecutter-aws-sam-hello-powertools-java-maven\", \"displayName\": \"Hello World Example with Lambda Powertools: Maven\", \"dependencyManager\": \"maven\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"11\" } ]}"
   job2:
     needs: job1
     runs-on: ubuntu-latest
