@@ -5,7 +5,9 @@ on:
     branches:
       - build_workflow
     paths:
+      - 'manifest.json'
       - 'templates/**'
+      - '.github/workflows/**'
 
 jobs:
   job1:
