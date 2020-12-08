@@ -1,7 +1,7 @@
 name: Build
 
 on:
-  push:
+  pull_request:
     branches:
       - build_workflow
     paths:
@@ -10,7 +10,7 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  job1:
+  prepare:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -25,11 +25,11 @@ jobs:
         echo $JSON
         echo "-----------------------"
         echo "::set-output name=matrix::{\"include\":[ { \"directory\": \"templates\/java8\/cookiecutter-aws-sam-hello-powertools-java-gradle\", \"displayName\": \"Hello World Example with Lambda Powertools: Gradle\", \"dependencyManager\": \"gradle\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java8\/cookiecutter-aws-sam-hello-powertools-java-maven\", \"displayName\": \"Hello World Example with Lambda Powertools: Maven\", \"dependencyManager\": \"maven\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java8.al2\/cookiecutter-aws-sam-hello-powertools-java-gradle\", \"displayName\": \"Hello World Example with Lambda Powertools: Gradle\", \"dependencyManager\": \"gradle\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java8.al2\/cookiecutter-aws-sam-hello-powertools-java-maven\", \"displayName\": \"Hello World Example with Lambda Powertools: Maven\", \"dependencyManager\": \"maven\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"1.8\" }, { \"directory\": \"templates\/java11\/cookiecutter-aws-sam-hello-powertools-java-gradle\", \"displayName\": \"Hello World Example with Lambda Powertools: Gradle\", \"dependencyManager\": \"gradle\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"11\" }, { \"directory\": \"templates\/java11\/cookiecutter-aws-sam-hello-powertools-java-maven\", \"displayName\": \"Hello World Example with Lambda Powertools: Maven\", \"dependencyManager\": \"maven\", \"appTemplate\": \"powertools-hello-world\", \"javaVersion\": \"11\" } ]}"
-  job2:
-    needs: job1
+  build:
+    needs: prepare
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
       - name: Setup java
@@ -44,3 +44,26 @@ jobs:
         run: |
           cd ./${{ matrix.directory }}/"{{ cookiecutter.project_slug }}"/HelloWorldFunction/
           ./gradlew build
+
+  auto-merge:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    if: github.base_ref == 'build_workflow' && github.actor == 'vitodegiosa'
+    steps:
+      - uses: actions/github-script@0.2.0
+        with:
+          script: |
+            github.pullRequests.createReview({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number,
+              event: 'APPROVE'
+            })
+            github.pullRequests.merge({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number,
+              merge_method: 'squash'
+            })
+          github-token: ${{ secrets.AUTOMERGE }}
+
