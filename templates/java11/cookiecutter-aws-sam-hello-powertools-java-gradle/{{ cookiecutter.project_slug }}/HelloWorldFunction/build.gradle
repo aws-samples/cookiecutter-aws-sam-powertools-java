@@ -8,8 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'software.amazon.lambda:powertools-tracing:1.0.1'
-    aspectpath 'software.amazon.lambda:powertools-tracing:1.0.0'
+    implementation 'software.amazon.lambda:powertools-tracing:1.1.0'
+    aspectpath 'software.amazon.lambda:powertools-tracing:1.1.0'
 
     implementation 'software.amazon.lambda:powertools-logging:1.1.0'
     aspectpath 'software.amazon.lambda:powertools-logging:1.0.0'
