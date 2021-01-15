@@ -16,7 +16,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.amazon.lambda.powertools.logging.Logging;
 import software.amazon.lambda.powertools.metrics.Metrics;
+import software.amazon.lambda.powertools.tracing.CaptureMode;
 import software.amazon.lambda.powertools.tracing.Tracing;
+
+import static software.amazon.lambda.powertools.tracing.CaptureMode.*;
 
 /**
  * Handler for requests to Lambda function.
@@ -26,7 +29,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
     Logger log = LogManager.getLogger();
 
     @Logging(logEvent = true)
-    @Tracing(captureResponse = false, captureError = false)
+    @Tracing(captureMode = DISABLED)
     @Metrics(captureColdStart = true)
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
