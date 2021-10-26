@@ -12,7 +12,9 @@ public class AppTest {
 
   @Before
   public void setup() {
-    AWSXRay.beginSegment("test");
+    if(null == System.getenv("LAMBDA_TASK_ROOT")) {
+      AWSXRay.beginSegment("test");
+    }
   }
 
   @After
@@ -20,7 +22,10 @@ public class AppTest {
     if (AWSXRay.getCurrentSubsegmentOptional().isPresent()) {
       AWSXRay.endSubsegment();
     }
-    AWSXRay.endSegment();
+
+    if(null == System.getenv("LAMBDA_TASK_ROOT")) {
+      AWSXRay.endSegment();
+    }
   }
 
   @Test
