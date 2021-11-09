@@ -14,8 +14,8 @@ dependencies {
     implementation 'software.amazon.lambda:powertools-logging:1.7.3'
     aspectpath 'software.amazon.lambda:powertools-logging:1.7.2'
 
-    implementation 'software.amazon.lambda:powertools-metrics:1.7.3'
-    aspectpath 'software.amazon.lambda:powertools-metrics:1.7.2'
+    implementation 'software.amazon.lambda:powertools-metrics:1.8.0'
+    aspectpath 'software.amazon.lambda:powertools-metrics:1.8.0'
 
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
     implementation 'com.amazonaws:aws-lambda-java-events:3.10.0'
