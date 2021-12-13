@@ -11,7 +11,7 @@ dependencies {
     implementation 'software.amazon.lambda:powertools-tracing:1.8.0'
     aspectpath 'software.amazon.lambda:powertools-tracing:1.8.0'
 
-    implementation 'software.amazon.lambda:powertools-logging:1.8.0'
+    implementation 'software.amazon.lambda:powertools-logging:1.8.1'
     aspectpath 'software.amazon.lambda:powertools-logging:1.8.0'
 
     implementation 'software.amazon.lambda:powertools-metrics:1.8.0'
