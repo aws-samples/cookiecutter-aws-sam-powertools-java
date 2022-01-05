@@ -7,10 +7,6 @@ repositories {
     mavenCentral()
 }
 
-aspectj {
-    version  = "1.9.7"
-}
-
 dependencies {
     aspect 'software.amazon.lambda:powertools-logging:1.10.0'
     aspect 'software.amazon.lambda:powertools-tracing:1.10.0'
