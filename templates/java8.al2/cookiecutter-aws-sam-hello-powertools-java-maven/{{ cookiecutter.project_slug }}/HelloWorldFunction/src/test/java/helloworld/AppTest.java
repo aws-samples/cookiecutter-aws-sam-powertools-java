@@ -10,24 +10,6 @@ import static org.junit.Assert.*;
 
 public class AppTest {
 
-  @Before
-  public void setup() {
-    if(null == System.getenv("LAMBDA_TASK_ROOT")) {
-      AWSXRay.beginSegment("test");
-    }
-  }
-
-  @After
-  public void tearDown() {
-    if (AWSXRay.getCurrentSubsegmentOptional().isPresent()) {
-      AWSXRay.endSubsegment();
-    }
-
-    if(null == System.getenv("LAMBDA_TASK_ROOT")) {
-      AWSXRay.endSegment();
-    }
-  }
-
   @Test
   public void successfulResponse() {
     App app = new App();
