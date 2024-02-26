@@ -32,7 +32,7 @@ jobs:
         JSON="${JSON//$'\r'/'%0D'}"
         echo $JSON
         echo "-----------------------"
-        echo "::set-output name=matrix::$JSON"
+        echo "matrix=$JSON" >> "$GITHUB_OUTPUT"
   build:
     needs: prepare
     runs-on: ubuntu-latest
